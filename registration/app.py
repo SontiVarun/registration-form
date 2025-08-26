@@ -8,8 +8,8 @@ app.secret_key = "your_secret_key"
 db = mysql.connect(
     host="localhost",
     user="root",
-    password="Varun@1505",
-    database="user_detail"
+    password="Brithvik/1",
+    database="user_details"
 )
 
 @app.route("/")
