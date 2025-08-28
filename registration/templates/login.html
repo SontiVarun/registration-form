@@ -4,16 +4,75 @@
   <meta charset="UTF-8">
   <title>Login</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    .password-wrapper input[type="password"],
+    .password-wrapper input[type="text"] {
+      width: 100%;
+      padding-right: 40px;
+      box-sizing: border-box;
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+    }
+    .eye-icon {
+      position: absolute;
+      right: 10px;
+      top: 0;
+      height: 100%;
+      width: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0.6;
+    }
+    .eye-icon i {
+      /* This is the key change: reduced font-size */
+      font-size: 18px; 
+      color: gray;
+    }
+    .eye-icon:hover {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
   <div class="form-container">
     <h2>Login Here</h2>
     <form action="/login" method="POST">
       <input type="email" name="email" placeholder="Enter Email" required>
-      <input type="password" name="password" placeholder="Enter Password" required>
+      <div class="password-wrapper">
+        <input type="password" name="password" placeholder="Enter Password" id="password" required>
+        <span id="togglePassword" class="eye-icon">
+          <i class="fas fa-eye"></i>
+        </span>
+      </div>
       <button type="submit">login</button>
     </form>
     <p>Don’t have an account? <a href="/register">Signup</a></p>
   </div>
+  <script>
+    const passwordInput = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+    const eyeIcon = togglePassword.querySelector('i');
+
+    togglePassword.addEventListener('click', function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+
+      if (type === 'text') {
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    });
+  </script>
 </body>
 </html>
